@@ -43,4 +43,32 @@ This fullstack application provides:
 - dotenv for environment management
 
 ---
+---
+## 📸 Screenshots
+
+<div align="center">
+
+<img src="https://github.com/user-attachments/assets/86e46247-a491-49a7-bdd2-24c9580419f5" alt="Screenshot 1" width="400" style="margin: 10px;" />
+
+<img src=<img width="1578" height="772" alt="Screenshot 2025-07-27 214244" src="https://github.com/user-attachments/assets/98aa64d4-2d7c-4b29-8c51-60737f11233f" />
+ alt="Screenshot 2" width="400" style="margin: 10px;" />
+<img src="https://github.com/user-attachments/assets/fb7f286b-a178-4d3b-bb24-0e260689de28" alt="Screenshot 1" width="400" style="margin: 10px;"  />
+<img src="https://github.com/user-attachments/assets/332cd306-0edb-41ae-b637-90872d31b050" alt="Screenshot 1" width="400" style="margin: 10px;"  />
+<img src="https://github.com/user-attachments/assets/d40bf0e6-b9f2-4a76-b92c-10acb0761b29"  alt="Screenshot 1" width="400" style="margin: 10px;"  />
+<img src="https://github.com/user-attachments/assets/c8a80485-ab71-4c73-b84b-2b1b44986322"  alt="Screenshot 1" width="400" style="margin: 10px;"  />
+<img src="https://github.com/user-attachments/assets/ae07ad49-b968-4253-b5b2-aff6ee4afb77"  alt="Screenshot 1" width="400" style="margin: 10px;"  />
+<img src="https://github.com/user-attachments/assets/8ecd32ca-5be6-4442-a860-9a5261399430"  alt="Screenshot 1" width="400" style="margin: 10px;"  />
+<img src="https://github.com/user-attachments/assets/79724ff7-1f9f-4c4f-8ae5-d9c4fa057ea8"  alt="Screenshot 1" width="400" style="margin: 10px;"  />
+</div>
+
+🤝 Contribution
+Feel free to fork the repo, open issues, or submit pull requests. Suggestions and improvements are welcome!
+
+## 📫 Contact
+
+If you have any questions or want to collaborate, feel free to reach out to me:
+
+- ✉️ **Email:** [alaaismailmohamed144@gmail.com](mailto:alaaismailmohamed144@gmail.com)  
+- 🔗 **LinkedIn:** [Alaa Ismail](https://www.linkedin.com/in/alaa-ismail-b09493264)
+
 
