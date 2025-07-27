@@ -53,6 +53,7 @@ This fullstack application provides:
 <img src="https://github.com/user-attachments/assets/332cd306-0edb-41ae-b637-90872d31b050" alt="Screenshot 1" width="400" style="margin: 10px;"  />
 <img src="https://github.com/user-attachments/assets/d40bf0e6-b9f2-4a76-b92c-10acb0761b29"  alt="Screenshot 1" width="400" style="margin: 10px;"  />
 <img src="https://github.com/user-attachments/assets/24c3aeb4-98fd-4e5f-b163-3bba440305dd"  alt="Screenshot 1" width="400" style="margin: 10px;"  />
+<img src="https://github.com/user-attachments/assets/009a993f-1fed-43e9-84b6-b1caffde4600"  alt="Screenshot 1" width="400" style="margin: 10px;"  />
 <img src="https://github.com/user-attachments/assets/c8a80485-ab71-4c73-b84b-2b1b44986322"  alt="Screenshot 1" width="400" style="margin: 10px;"  />
 <img src="https://github.com/user-attachments/assets/ae07ad49-b968-4253-b5b2-aff6ee4afb77"  alt="Screenshot 1" width="400" style="margin: 10px;"  />
 <img src="https://github.com/user-attachments/assets/8ecd32ca-5be6-4442-a860-9a5261399430"  alt="Screenshot 1" width="400" style="margin: 10px;"  />
