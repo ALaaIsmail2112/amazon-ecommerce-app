@@ -48,10 +48,7 @@ This fullstack application provides:
 
 <div align="center">
 
-<img src="https://github.com/user-attachments/assets/86e46247-a491-49a7-bdd2-24c9580419f5" alt="Screenshot 1" width="400" style="margin: 10px;" />
 
-<img src=<img width="1578" height="772" alt="Screenshot 2025-07-27 214244" src="https://github.com/user-attachments/assets/98aa64d4-2d7c-4b29-8c51-60737f11233f" />
- alt="Screenshot 2" width="400" style="margin: 10px;" />
 <img src="https://github.com/user-attachments/assets/fb7f286b-a178-4d3b-bb24-0e260689de28" alt="Screenshot 1" width="400" style="margin: 10px;"  />
 <img src="https://github.com/user-attachments/assets/332cd306-0edb-41ae-b637-90872d31b050" alt="Screenshot 1" width="400" style="margin: 10px;"  />
 <img src="https://github.com/user-attachments/assets/d40bf0e6-b9f2-4a76-b92c-10acb0761b29"  alt="Screenshot 1" width="400" style="margin: 10px;"  />
