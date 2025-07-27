@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap"rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />
+    <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+    <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com --> 
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.3/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body style="padding: 10px; padding-top: .01%;">
+    <!---------------------------------------- Navbar ---------------------------------------->
+ 
+      <div class="navbar bg-base-100 shadow flex" style="position: fixed ;z-index: 99999;padding:15px 0px 15px 15px">
+        <div class="flex-none" style="padding: 0px 20px 0px 0px;">
+           <label class="btn-circle swap swap-rotate">        
+           <!-- this hidden checkbox controls the state -->
+           <input id="swap" type="checkbox" />
+           <!-- hamburger icon -->
+           <svg class="swap-off fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"/></svg>
+           <!-- close icon -->
+           <svg class="swap-on fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"/></svg>
+           </label>
+       </div>
+
+       
+       <div class="flex-1">
+           <img src="/uploads/logo.png" alt="DaisyUI logo" class="w-10 h-10" />
+           <a class="font-bold text-xl">  Bebalaaaash</a>
+       </div>
+
+       <!-- Search bar -->
+       <form action="/products/searchcategory" method ="post" >
+       <div class="flex- searchBox" >
+           <label class="input input-bordered flex items-center gap-2">
+           All
+           <input name ="searchtext" type="text" class="grow w-96" placeholder="Search for Product" />
+           </label>
+       </div>
+    </form>
+       <!-- End of Search bar -->
+
+       <div class="flex-none">
+           <div class="dropdown dropdown-end">
+           <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+               <div class="indicator">
+               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+               <span class="badge badge-sm indicator-item"><%=length  %></span>
+               </div>
+           </div>
+           <!-- cart design -->
+           <div tabindex="0" class="mt-3 z-[1] card card-compact dropdown-content w-96 bg-base-100 shadow">
+               <div class="card-body">
+                   <span class="font-bold text-lg">Cart 🛒</span>
+                   <!-- Item -->
+                   <% cartdata.forEach(data => { %>
+                    <div class="card w-84 bg-base-100 shadow-xl" style="padding: 20px 20px 20px 0px;">
+                        <div class="all flex" style="justify-content: space-around;align-items: center;">
+                            <div class="lft" style="align-items: center;">
+                                <img src="/<%=data.product.image %>" alt="" class="w-24 rounded">
+                            </div>
+                            <div class="cntr">
+                                <h2 class="card-title"><%=data.product.nameproduct %></h2>
+                                <% if (data.product.discount!==0 ) { %>
+                                    <% var discount = data.product.price * data.product.discount / 100; %>
+                                    <span class="text-2xl font-bold">$<%= data.product.price - discount.toFixed(2) %></span>
+                                    <% }else{ %>
+                                    
+                                <p class="text-sm">price : <span><%=data.product.price %>$</span></p>
+                                <%}%>
+
+                            </div>
+                            <div class="cards-actions ">
+                                <form method="POST" action = "/products/deletefromcart/<%=data.product._id  %>?_method=Delete"> 
+                                <button class="btn btn-square btn-sm" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                                </button>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                   <% }) %>
+                
+                   <!-- End Item -->
+                   <span class="text-info">Total:<%= total%>  $</span>
+                   <div class="card-actions">
+                       <button class="btn btn-primary btn-block">View cart</button>
+                   </div>
+               </div>
+           </div>
+           <!-- cart design -->
+           </div>
+
+
+           <!-- Profile or login -->
+           <div class="dropdown dropdown-end" style="padding: 0px  20px 0px 20px;">
+           <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar" >
+               <div class="w-10 rounded-full">
+               <img alt="Tailwind CSS Navbar component" src="/<%=UserOrDesigner.image  %>" />
+               </div>
+           </div>
+           <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+               <li>
+               <a class="justify-between">
+                   Profile
+                   <span class="badge">New</span>
+               </a>
+               </li>
+               <form action="/products/logoutcustomer" method="post">
+                 <li><button type="submit">logout</button></li>
+             </form>
+           </ul>
+           </div>
+           
+           <!-- login -->
+
+           <!-- <div class="navbar-end"> -->
+               <!-- <a class="btn btn-primary w-24 font-bold">Login</a> -->
+           <!-- </div> -->
+           
+           <!-- End of Profile or login -->
+       </div>
+   </div>
+
+    <!-- breadcrump div -->
+    <div class="flex justify-around" style="margin-top: 90px;">
+        <div class="text-sm breadcrumbs">
+            <ul>
+                <li class="font-bold"><a href="#">All Prouducts</a></li> 
+                <li class="font-bold"><a href="#">Category_Name</a></li> 
+                <li>Item_Name</li>
+            </ul>
+        </div>
+    </div>
+    <!-- End of breadcrump div -->
+    <!---------------------------------------- End of Navbar ---------------------------------------->
+    <!---------------------------------------- Main ---------------------------------------->
+  
+<div class="Main flex justify-center">
+    <!-- Product Div -->
+    <div class="container ">
+        <div class="card lg:card-side bg-base-100 " >
+            <figure style="max-width: 30%;">
+                <img style="height: 400px; width: 400px;"  class="rounded-box" src="/<%=product.product.image%>" alt="Album"/>
+            </figure>
+            <div class="card-body flex">
+                <div class="all" style="display: flex;">
+                    <!-- Left Div -->
+                    <div class="left" style="width: 80%;">
+                        <h2 class="card-title text-4xl font-bold"><%=product.product.nameproduct%></h2>
+
+                        <div class="chat chat-start" style="margin-top: 20px;">
+                            <div class="chat-image avatar">
+                                <div class="w-10 rounded-full">
+                                    <img alt="Tailwind CSS chat bubble component" src="/<%=product.designer.image%>"/>
+                                </div>
+                            </div>
+                            <div>
+                                <h1 class="font-bold text-xl" style="margin-top: 5px;"><%=product.designer.username%></h1>
+                            </div>
+                        </div>
+
+                        <!-- Category -->
+                        <div class="category" style="margin-top: 20px;">
+                            <div class="badge badge-secondary badge-outline"><%=product.product.category%></div>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="card-actions" style="margin-top: 20px;">
+                          <% if (product.product.discount !== 0) { %>
+                            <% var discount = product.product.price * product.product.discount / 100; %>
+                           
+                            <span class="text-xl">$<%=product.product.price %></span>
+                            <span class="text-2xl font-bold">$<%= product.product.price - discount.toFixed(2) %></span>
+                          <% } else { %>
+                            <span class="text-2xl font-bold">$<%=product.product.price  %></span>
+                          <% } %>
+                        </div>
+                        
+                               <!-- Amount -->
+                        <div class="amount" style="margin-top: 20px;align-items: center;">
+                          <span class="text-lg"><span class="text-success text-xl font-bold">In Stock</span></span>
+                          <span class="indicator-item badge badge-primary"><%= product.product.amount %> </span> 
+                          
+                      </div>
+                            <style>.card-actions .text-xl {position: relative;}.card-actions .text-xl::before {content: "";position: absolute;top: 10px; left: 0;width: 100%;height: 1px; background-color: black; transform: rotate(20deg); }</style>
+                        </div>
+
+                     
+
+                    
+
+
+                   
+                    <div class="right" style="width: 25%;">
+                      <div class="rating" style="margin-top: 18%;">
+                        <div class="rating rating-md rating-half">
+                          <input disabled type="radio" name="ratingforproduct" class="rating-hidden" <% if (finalRating ==0) { %>  checked <% } %>  />
+                          <input disabled type="radio" name="ratingforproduct" class="bg-orange-500 mask mask-star-2 mask-half-1" <% if (finalRating > 0 && finalRating <= 0.5) { %>  checked <% } %> />
+                          <input disabled type="radio" name="ratingforproduct" class="bg-orange-500 mask mask-star-2 mask-half-2" <% if (finalRating > 0.5 && finalRating <= 1) { %>  checked <% } %> />
+                          <input disabled type="radio" name="ratingforproduct" class="bg-orange-500 mask mask-star-2 mask-half-1" <% if (finalRating > 1 && finalRating <= 1.5) { %>  checked <% } %> />
+                          <input disabled type="radio" name="ratingforproduct" class="bg-orange-500 mask mask-star-2 mask-half-2" <% if (finalRating > 1.5 && finalRating <= 2) { %>  checked <% } %> />
+                          <input disabled type="radio" name="ratingforproduct" class="bg-orange-500 mask mask-star-2 mask-half-1" <% if (finalRating > 2 && finalRating <= 2.5) { %>  checked <% } %> />
+                          <input disabled type="radio" name="ratingforproduct" class="bg-orange-500 mask mask-star-2 mask-half-2" <% if (finalRating > 2.5 && finalRating <= 3) { %>  checked <% } %> />
+                          <input disabled type="radio" name="ratingforproduct" class="bg-orange-500 mask mask-star-2 mask-half-1" <% if (finalRating > 3 && finalRating <= 3.5) { %>  checked <% } %> />
+                          <input disabled type="radio" name="ratingforproduct" class="bg-orange-500 mask mask-star-2 mask-half-2" <% if (finalRating > 3.5 && finalRating <= 4) { %>  checked <% } %> />
+                          <input disabled type="radio" name="ratingforproduct" class="bg-orange-500 mask mask-star-2 mask-half-1" <% if (finalRating > 4 &&finalRating <= 4.5) { %>  checked <% } %> />
+                          <input disabled type="radio" name="ratingforproduct" class="bg-orange-500 mask mask-star-2 mask-half-2" <% if (finalRating > 4.5 && finalRating <= 5) { %>  checked <% } %> />
+                        
+                      </div>
+                         
+                      </div>
+
+                      <div class="card-actions justify-end"
+                              style="position: absolute;right: 3%;bottom: 10%;">
+                        <a href="/products/cart">  <button class="btn btn-primary" >🛍 Order Now!</button></a>
+                        <% if (product.product.amount>0) { %>
+                          <form action = "/products/addtocart/<%=product.product._id  %>" method="post">
+                            <button type="submit" class="btn btn-warning">🛒Add To Cart</button>
+                          </form>
+                        <% } else{%>
+                          <button type="submit" class="btn btn-error" disabled style="background-color: brown; color : #fff">🛒Add To Cart</button>
+                          <%}%>
+                        
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!---------------------------------------- End of Main   </div>---------------------------------------->
+
+    <!-- ---------------------  Same Category Prouducts  -------------------------------- -->
+        <div class="title" style="margin: 30px;">
+            <h1 class="text-2xl font-bold">Category Prouducts </h1>
+        </div>
+        <div class="flex justify-center">
+        <div class="carousel carousel-center p-4 space-x-4 bg-erro r rounded-box" id="carousel" style="width: 96%;max-height: 5%;">
+          <div class="carousel-item" style="padding-left: 5px;">
+            <!-- Card -->
+          <% sameproducts.forEach(data => { %>
+              <div class="card w-64 bg-base-100 shadow-xl" style="margin-left: 8px;margin-right:8px">
+                <figure style="max-height: 200px;"><!-- contorl white around pic -->
+                  <img src="/<%=data.product.image  %>" alt="Shoes" class="rounded-xl" />
+                </figure>
+                <div class="card-body items-center text-center">
+                  <h2 class="card-title font-bold"><%= data.product.nameproduct  %></h2>
+                  <p>by : <%=data.designer.username  %></p>
+                  <div class="card-actions price">
+                    <% if (data.product.discount !== 0) { %>
+                      <% var discount = data.product.price * data.product.discount / 100; %>
+                     
+                      <span class="text-xl">$<%= data.product.price %></span>
+                      <span class="text-2xl font-bold">$<%= data.product.price - discount.toFixed(2) %></span>
+                    <% } else { %>
+                      <span class="text-2xl font-bold">$<%=data.product.price  %>+<%= data.product.rate %></span>
+                    <% } %>
+                      <style>.card-actions.price .text-xl {position: relative;}.card-actions.price .text-xl::before {content: "";position: absolute;top: 10px; left: 0;width: 100%;height: 1px; background-color: black; transform: rotate(20deg); }</style>
+                  </div>
+                  <div class="rating rating-lg rating-half">
+                            <input disabled type="radio" name="ratingforproduct<%=data.product._id  %>"  class="rating-hidden" <% if (data.finalRating ==0) { %>  checked <% } %>  />
+                            <input disabled type="radio" name="ratingfor<%=data.product._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-1" <% if (data.finalRating > 0 && data.finalRating <= 0.5) { %>  checked <% } %> />
+                            <input disabled type="radio" name="ratingfor<%=data.product._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-2" <% if (data.finalRating > 0.5 && data.finalRating <= 1) { %>  checked <% } %> />
+                            <input disabled type="radio" name="ratingfor<%=data.product._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-1" <% if (data.finalRating > 1 && data.finalRating <= 1.5) { %>  checked <% } %> />
+                            <input disabled type="radio" name="ratingfor<%=data.product._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-2" <% if (data.finalRating > 1.5 && data.finalRating <= 2) { %>  checked <% } %> />
+                            <input disabled type="radio" name="ratingfor<%=data.product._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-1" <% if (data.finalRating > 2 && data.finalRating <= 2.5) { %>  checked <% } %> />
+                            <input disabled type="radio" name="ratingfor<%=data.product._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-2" <% if (data.finalRating > 2.5 && data.finalRating <= 3) { %>  checked <% } %> />
+                            <input disabled type="radio" name="ratingfor<%=data.product._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-1" <% if (data.finalRating > 3 && data.finalRating <= 3.5) { %>  checked <% } %> />
+                            <input disabled type="radio" name="ratingfor<%=data.product._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-2" <% if (data.finalRating > 3.5 && data.finalRating <= 4) { %>  checked <% } %> />
+                            <input disabled type="radio" name="ratingfor<%=data.product._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-1" <% if (data.finalRating > 4 && data.finalRating <= 4.5) { %>  checked <% } %> />
+                            <input disabled type="radio" name="ratingfor<%=data.product._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-2" <% if (data.finalRating > 4.5 && data.finalRating <= 5) { %>  checked <% } %> />
+                  </div>
+                </div>
+              </div>
+             
+            <% }) %>
+          
+            <!-- Card -->
+            <!-- Card -->
+           
+            <!-- Card -->
+          </div> 
+        </div>
+        </div>
+        <!-- ---------------------  -------------------------------- -->
+
+
+   
+
+        <div class="Bottom" style="display: flex;">
+          <!-- Bottom div -->
+<!-- Reviews -->
+          <div class="reviews " style="width: 85%;margin-left: 50px ;">
+            <!-- AddPost div -->
+              <div class="postform container rounded-box " style="width:90%;box-shadow: 5px 5px 20px 4px rgba(0, 0, 0, 0.2);padding: 20px 20px 20px 20px;">
+                <div class="flex" style="justify-content:space-between">
+                  <div class="left">
+                    <h1 class="text-2xl font-bold mb-4">Add Review  ✏ </h1>
+                  </div>
+                  <form style="width: 100%;padding: 0;" method="post" action="/products/addpreview/<%= product.product._id %>" >
+                  <div class="right">
+                    
+                    <div class="rating " style="margin-left: 600px;">
+                      
+                      <div class="rating rating-md rating-half ">
+      
+                        <input type="radio" value="0" name="rate" class="rating-hidden" checked />
+                        <input type="radio" value=".5" name="rate"  class="bg-orange-400 mask mask-star-2 mask-half-1"/>
+                        <input type="radio" value="1" name="rate"  class="bg-orange-400 mask mask-star-2 mask-half-2"/>
+                        <input type="radio" value="1.5"name="rate"  class="bg-orange-400 mask mask-star-2 mask-half-1"/>
+                        <input type="radio" value="2" nname="rate" class="bg-orange-400 mask mask-star-2 mask-half-2"/>
+                        <input type="radio" value="2.5" name="rate"  class="bg-orange-400 mask mask-star-2 mask-half-1"/>
+                        <input type="radio" value="3" name="rate"  class="bg-orange-400 mask mask-star-2 mask-half-2"/>
+                        <input type="radio" value="3.5" name="rate"  class="bg-orange-400 mask mask-star-2 mask-half-1"/>
+                        <input type="radio" value="4" name="rate"  class="bg-orange-400 mask mask-star-2 mask-half-2"/>
+                        <input type="radio" value="4.5" name="rate"  class="bg-orange-400 mask mask-star-2 mask-half-1"/>
+                        <input type="radio" value="5" name="rate"  class="bg-orange-400 mask mask-star-2 mask-half-2"/>
+                      </div>
+                    </div>
+                  </div>
+                
+                <div class="flex">
+                    <textarea required name="comment" type="text" placeholder="What are You thinking about ?" class="textarea textarea-bordered textarea-sec ondary w-full max-w-94" style="width: 100%;"></textarea>
+                    <button type="submit" class="btn btn-outline btn-secondary" style="margin: 20px;margin-left: 50px;">Add Review</button>
+                </div>
+                
+              
+              
+            </form>
+          </div>
+        </div>
+              <!-- AddPost div -->
+               <div class="container" style="margin: 30px;">
+        <h1 class="text-2xl font-bold mb-4"> Reviews 📖 ✏</h1>
+      </div>
+            <!-- bubble -->
+         
+            <% comments.forEach(data => {   %>
+              <% if (data.product._id.toString()== product.product._id .toString() ) { %>
+                <h1 ><%= data.userOrDesigner.username %></h1> 
+                
+               
+              <div class="chat chat-start" style="margin: 5px;">
+                
+                <div class="chat-image avatar">
+                  <div class="w-10 rounded-full">
+                   
+                      <%  commentcustomer.forEach(customer0 => { %>
+                        <% if (data.userOrDesigner._id.toString() === customer0.customer._id.toString()) { %>
+                          <img alt="Tailwind CSS chat bubble component" src="/<%= customer0.customer.image %>" />
+                        <% } %>
+                      <% }) %>
+                    
+                  
+                   
+                      <%  commentsDesigner.forEach(designer => { %>
+                        <% if (data.userOrDesigner._id.toString() === designer.user._id.toString()) { %>
+                          <img alt="Tailwind CSS chat bubble component" src="/<%= designer.user.image %>" />
+                        <% } %>
+                      <% }) %>
+                    
+                   
+                     
+                   
+                  
+                </div>
+                   </div>
+               
+                
+                <!-- bubble -->
+                <div class="chat-bubble bg-base-100 text-base-content" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);display: flex;width:90%">
+                  <div class="left">
+                      <div class="name">
+                        
+                          <% const matchingCustomer = commentsDesigner.find(customer => (data.userOrDesigner._id.toString() === customer.user._id.toString())) %>
+                          <% if (matchingCustomer) { %>
+                              <h1 class="font-bold"><%= matchingCustomer.user.username %></h1>
+                          <% } %>
+
+                          
+                          <% const matchingCustomery = commentcustomer.find(customer => (data.userOrDesigner._id.toString() === customer.customer._id.toString())) %>
+                          <% if (matchingCustomery) { %>
+                              <h1 class="font-bold"><%= matchingCustomery.customer.username %></h1>
+                          <% } %>
+
+                      
+
+                          
+
+                      
+
+                      </div>
+                      <div class="review-text" style="min-width:85%;max-width: 85% ;">
+                        <p ><%=data.comment %></p>
+                      </div>
+                      <div class="review">
+                        <div class="textplace">
+                          
+                        </div>
+                      </div>
+                  </div>
+                  <div class="right" style="position: absolute; top: px; right: 20px;">
+                    <div class="rating">
+                        <div class="rating rating-md rating-half">
+                            <!-- Radio buttons for star ratings -->
+                            <input disabled type="radio" name="rate <%=data._id  %>" class="rating-hidden" <% if (data.rate == 0) { %>  checked <% } %> />
+                            <input disabled type="radio" name="rate<%=data._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-1" <% if (data.rate > 0 && data.rate <= 0.5) { %> checked <% } %> />
+                            <input disabled type="radio" name="rate<%=data._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-2" <% if (data.rate > 0.5 && data.rate <= 1) { %>  checked <% } %> />
+                            <input disabled type="radio" name="rate<%=data._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-1" <% if (data.rate > 1 && data.rate <= 1.5) { %>  checked <% } %> />
+                            <input disabled type="radio" name="rate<%=data._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-2" <% if (data.rate > 1.5 && data.rate <= 2) { %>  checked <% } %> />
+                            <input disabled type="radio" name="rate<%=data._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-1" <% if (data.rate > 2 && data.rate <= 2.5) { %>  checked <% } %> />
+                            <input disabled type="radio" name="rate<%=data._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-2" <% if (data.rate > 2.5 && data.rate <= 3) { %>  checked <% } %> />
+                            <input disabled type="radio" name="rate<%=data._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-1" <% if (data.rate > 3 && data.rate <= 3.5) { %>  checked <% } %> />
+                            <input disabled type="radio" name="rate<%=data._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-2" <% if (data.rate > 3.5 && data.rate <= 4) { %>  checked <% } %> />
+                            <input disabled type="radio" name="rate<%=data._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-1" <% if (data.rate > 4 && data.rate <= 4.5) { %>  checked <% } %> />
+                            <input disabled type="radio" name="rate<%=data._id  %>" class="bg-orange-500 mask mask-star-2 mask-half-2" <% if (data.rate > 4.5 && data.rate <= 5) { %>  checked <% } %> />
+                        </div>
+                    </div>
+                </div>
+                
+                </div>
+               
+                <!-- bubble -->
+
+          
+            <!-- bubble -->
+           
+          </div>
+          <% } %>
+        
+          <% }) %>
+        
+
+<aside>
+    <div class="sidebar bg-base-100" style="width: 0%; position: fixed;top: 60px;overflow: hidden; transition: .3s;height: 100vh;z-index: 19000;">
+        <div class="card bg-base-100">
+            <div class="card-body">
+                <h2 class="card-title">Categories</h2>
+                <ul class="menu menu-nav">
+                    <li><a>Electronics</a></li>
+                    <li><a>Home Appliances</a></li>
+                    <li><a>Books</a></li>
+                    <li><a>Stationary</a></li>
+                    <li><a>Food</a></li>
+                    <li><a>Others</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card bg-base-100">
+            <div class="card-body">
+                <h2 class="card-title">Brands</h2>
+                <ul class="menu menu-nav">
+                    <li><a>Samsung</a></li>
+                    <li><a>Apple</a></li>
+                    <li><a>LG</a></li>
+                    <li><a>HP</a></li>
+                    <li><a>Lenovo</a></li>
+                    <li><a>Others</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- div for logout button -->
+        <div class="card bg-base-100 w-full" style="position: absolute; bottom: 50px;left: 10px;">
+            <div class="card-body">
+                <a class="btn btn-error font-bold" href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+                    </svg>
+                    LogOut
+                </a>
+            </div>
+        <div>
+    </div>
+</aside>
+
+<button id="scroll-to-bottom-btn" class="btn btn-secondary" style="position: fixed;bottom: 20px;right: 20px;z-index: 9999;">Reviews 👇</button>
+
+<script>
+var scrollToBottomBtn = document.getElementById('scroll-to-bottom-btn');
+
+window.addEventListener('scroll', function() {
+    if (window.scrollY <= 250) {
+        scrollToBottomBtn.style.display = 'block';
+    } else {
+        scrollToBottomBtn.style.display = 'none';
+    }
+});
+
+scrollToBottomBtn.addEventListener('click', function() {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+    });
+});
+</script>
+
+<script>
+    function toggleSidebar() {
+        var sidebar = document.querySelector('.sidebar');
+        var Checkbox = document.getElementById('swap');
+        if (sidebar.style.width === '20%') {
+            sidebar.style.width = '0';
+        } else {
+            sidebar.style.width = '20%';
+            Checkbox.checked =      true   ;
+        }
+    }
+
+    var swapCheckbox = document.getElementById('swap');
+    swapCheckbox.addEventListener('change', toggleSidebar);
+    document.addEventListener('click', function (event) {
+        if (event.target.closest('.sidebar') || event.target.closest('.swap')) return;
+        var Checkbox = document.getElementById('swap');
+            document.querySelector('.sidebar').style.width = '0';
+            Checkbox.checked =      false   ;
+    });
+</script>
+</body>
+</html>

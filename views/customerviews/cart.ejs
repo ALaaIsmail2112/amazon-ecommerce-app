@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap"rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />
+    <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+    <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com --> 
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.3/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body style="padding: 10px; padding-top: .01%;">
+    <!---------------------------------------- Navbar ---------------------------------------->
+    <div class="navbar bg-base-100 shadow flex" style="position: fixed ;z-index: 99999;padding:15px 0px 15px 15px">
+         <div class="flex-none" style="padding: 0px 20px 0px 0px;">
+            <label class="btn-circle swap swap-rotate">        
+            <!-- this hidden checkbox controls the state -->
+            <input id="swap" type="checkbox" />
+            <!-- hamburger icon -->
+            <svg class="swap-off fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"/></svg>
+            <!-- close icon -->
+            <svg class="swap-on fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"/></svg>
+            </label>
+        </div>
+
+        
+        <div class="flex">
+            <img src="/uploads/logo.png" alt="DaisyUI logo" class="w-10 h-10" />
+            <a class="font-bold text-xl">  Bebalaaaash</a>
+               </div>
+                <div  class="flex-1" style="margin-left: 30px;" >
+               
+               <a href="/products/order"> <h2 class="text-2xl font-bold">🛍 Orders History </h2></a>
+             
+                   </div>
+
+        <!-- Search bar -->
+        <div class="flex- searchBox" >
+            <label class="input input-bordered flex items-center gap-2">
+            All
+            <input type="text" class="grow w-96" placeholder="Search for Product" />
+            </label>
+        </div>
+        <!-- End of Search bar -->
+
+        <div class="flex-none">
+            <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                <div class="indicator">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                <span class="badge badge-sm indicator-item"><%=length%></span>
+                </div>
+            </div>
+            <!-- cart design -->
+            <div tabindex="0" class="mt-3 z-[1] card card-compact dropdown-content w-96 bg-base-100 shadow">
+                <div class="card-body">
+                    <span class="font-bold text-lg">Cart 🛒</span>
+                    <!-- Item -->
+                    <% dataofcart.forEach(data => { %>
+                        <div class="card w-84 bg-base-100 shadow-xl" style="padding: 20px 20px 20px 0px;">
+                            <div class="all flex" style="justify-content: space-around;align-items: center;">
+                                <div class="lft" style="align-items: center;">
+                                    <img src="/<%=data.product.image %>" alt="" class="w-24 rounded">
+                                </div>
+                                <div class="cntr">
+                                    <h2 class="card-title"><%=data.product.nameproduct %></h2>
+                                    <% if (data.product.discount!==0 ) { %>
+                                        <% var discount = data.product.price * data.product.discount / 100; %>
+                                        <span class="text-2xl font-bold">$<%= data.product.price - discount.toFixed(2) %></span>
+                                        <% }else{ %>
+                                        
+                                    <p class="text-sm">price : <span><%=data.product.price %>$</span></p>
+                                    <%}%>
+    
+                                </div>
+                                <div class="cards-actions ">
+                                    <form method="POST" action = "/products/deletefromcart/<%=data.product._id  %>?_method=Delete"> 
+                                    <button class="btn btn-square btn-sm" type="submit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                                    </button>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                       <% }) %>
+                    <!-- End Item -->
+                    <span class="text-info">Total:<%= total%>  $</span>
+                    <div class="card-actions">
+                        <button class="btn btn-primary btn-block">View cart</button>
+                    </div>
+                </div>
+            </div>
+            <!-- cart design -->
+            </div>
+
+
+            <!-- Profile or login -->
+            <div class="dropdown dropdown-end" style="padding: 0px  20px 0px 20px;">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar" >
+                <div class="w-10 rounded-full">
+                <img alt="Tailwind CSS Navbar component" src="/<%= GetUserOrDesigner.image %>" />
+                </div>
+            </div>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                <li>
+                <a class="justify-between">
+                    Profile
+                    <span class="badge">New</span>
+                </a>
+                </li>
+                <li><a>Logout</a></li>
+            </ul>
+            </div>
+            
+            <!-- login -->
+
+            <!-- <div class="navbar-end"> -->
+                <!-- <a class="btn btn-primary w-24 font-bold">Login</a> -->
+            <!-- </div> -->
+            
+            <!-- End of Profile or login -->
+        </div>
+    </div>
+    <!---------------------------------------- End of Navbar ---------------------------------------->
+    <!-- Cart Label -->
+    <!---------------------------------------- Main ---------------------------------------->
+    <div class="Main flex">
+         <form id="OrderForm" action="/products/makeorder" method="post" class="flex">
+
+        <div class="left" style="width:70vw;"> 
+            <div class="flex" style="padding: 100px 0px 0px 20px;">
+                <h1 class="font-bold text-3xl">🛒 My Cart</h1>
+            </div>
+            <div class="Items container" style="padding: 30px;">
+        
+
+                    <% dataofcart.forEach(d => { %>
+                        <!-- Item -->
+                        <div class="card card-side bg-base-100 shadow-xl" style="margin: 10px;">
+                            <figure style="width: 30%;height: auto;"><img src="/<%= d.product.image %>" alt="Movie"/></figure>
+                            <div class="card-body">
+                                <div class="card-title text-xl font-bold flex justify-between">
+                                    <h2 ><%= d.product.nameproduct %></h2>
+                                    <% if (d.product.discount!==0 ) { %>
+                                        <% var discount = d.product.price * d.product.discount / 100; %>
+                                        <span class="text-2xl font-bold">$<%= d.product.price - discount.toFixed(2) %></span>
+                                        <% }else{ %>
+                                        
+                                            <span class="text-2xl font-bold">$<%= d.product.price  %></span>
+                                    <%}%>
+                                </div>
+                                <div class="available">
+                                    <p class="text-l font-bold"><%= d.product.amount %> Pices Available</p>
+                                </div>
+                                <div class="btttn" data-theme="light">
+                                    <label for="quantity-input<%= d.product._id %>" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose quantity:</label>
+                                    <div class="relative flex items-center max-w-[8rem]">
+                                        <% if (d.product.discount!==0 ) { %>
+                                            <% var discount = d.product.price * d.product.discount / 100; %>
+                                            
+                                            <button onclick="updateQuantity2('quantity-input<%= d.product._id %>', 'subtotalId', 'itemCountId',<%= d.product.price - discount.toFixed(2) %>,<%= d.product.amount %> )" type="button" id="decrement-button" data-input-counter-decrement="quantity-input<%= d.product._id %>" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                                                <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                                                </svg>
+                                            </button>
+                                            <% }else{ %>
+                                            
+                                                <button onclick="updateQuantity2('quantity-input<%= d.product._id %>', 'subtotalId', 'itemCountId',<%= d.product.price %>,<%= d.product.amount %> )" type="button" id="decrement-button" data-input-counter-decrement="quantity-input<%= d.product._id %>" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                                                    <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                                                    </svg>
+                                                </button>
+                                        <%}%>
+                                        <input name="productId<%= d.product._id %>" type="hidden" value="" />
+                                        <input name="count_of_item_<%= d.product._id %>"   data-input-counter-min="0" data-input-counter-max="<%= d.product.amount %>" maxlength="2" type="text" id="quantity-input<%= d.product._id %>" data-input-counter aria-describedby="helper-text-explanation" class="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="--" value="0" required />
+                                       
+                                        <% if (d.product.discount!==0 ) { %>
+                                            <% var discount = d.product.price * d.product.discount / 100; %>
+                                            <button onclick="updateQuantity1('quantity-input<%= d.product._id %>', 'subtotalId', 'itemCountId', <%= d.product.price - discount.toFixed(2) %>, <%= d.product.amount %>)" type="button" id="increment-button" data-input-counter-increment="quantity-input<%= d.product._id %>" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                                                <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                                                </svg>
+                                            </button>
+                                            <% }else{ %>
+                                            
+                                                <button onclick="updateQuantity1('quantity-input<%= d.product._id %>', 'subtotalId', 'itemCountId', <%= d.product.price %> , <%= d.product.amount %>)" type="button" id="increment-button" data-input-counter-increment="quantity-input<%= d.product._id %>" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                                                    <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                                                    </svg>
+                                                </button>
+                                        <%}%>
+                                       
+                                       
+                                       
+                                    </div>
+                                </div>
+                                <div class="card-actions justify-end">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Item End -->
+                    <% }); %>
+
+               
+                            
+            </div>
+
+        </div>
+        <div class="right" style="width:30%;border-left: 1px solid black;height: 100vh;">
+            <div class="flex" style="padding: 100px 0px 0px 20px;">
+                <h1 class="font-bold text-3xl">Order summary</h1>
+            </div>
+            <!-- Items -->
+            <div class="Items container" style="padding: 30px;">
+                <!-- Item -->
+                <div class="card card-side bg-base-100 shadow-xl" style="margin: 10px;">
+                    <div class="card-body">
+                        <div class="card-title font-bold flex justify-between" >
+                            <h1>Subtotal</h1>
+                            <div class="d flex">
+                                <h2 id="subtotalId">0 </h2>
+                                <h1 >$</h1>
+                                <input id="subtotalll" name="subtotal" type="number" hidden value="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card card-side bg-base-100 shadow-xl" style="margin: 10px;">
+                    <div class="card-body">
+                        <div class="card-title font-bold flex justify-between">
+                            <h1>Items Count</h1>
+                            <h2 id="itemCountId">0</h2>
+                        </div>
+                    </div>
+                </div>
+                        
+                <br><hr><br>
+                    <label class="input input-bordered flex items-center gap-2" style="margin: 20px;">
+                        Address
+                        <input name="address" id="addressInput" type="text" class="grow" placeholder="Your Address Here" required />
+                    </label>
+    
+                    <label class="input input-bordered flex items-center gap-2" style="margin: 20px;">
+                        Phone
+                    <input name="phone" id="phoneInput" type="tel" pattern="[0-9]*" inputmode="numeric" minlength="11" maxlength="11" class="grow" placeholder="01XXXXXXXXX" required />
+                    </label>
+
+                    <button  class="btn btn-neutral w-full rounded-full text-balck h-16" onclick="document.getElementById(OrderForm).submit()">Check Out</button>
+                </form>
+
+                                
+        </div>
+    </div>
+    <!---------------------------------------- End of Main ---------------------------------------->
+    <script>
+
+        
+
+function updateQuantity1(inputId, subtotalId, itemCountId, price,maxValue) {
+    
+    var quantityInput = document.getElementById(inputId);
+    if (parseInt(quantityInput.value) >= maxValue) {
+        return;
+    }
+    var subtotal = document.getElementById(subtotalId);
+    var itemCount = document.getElementById(itemCountId);
+    var subtotal_h1 = document.getElementById('subtotalll');
+
+    var quantity = parseInt(quantityInput.value) + 1;
+    var newSubtotal = parseInt(subtotal.textContent) + ( price);
+
+    itemCount.innerText = parseInt(itemCount.innerText) + 1;
+    if (isNaN(newSubtotal)) {
+        newSubtotal = 0;
+    }
+
+    subtotal.textContent = newSubtotal;
+    subtotal_h1.value = newSubtotal;
+}
+
+function updateQuantity2(inputId, subtotalId, itemCountId, price) {
+    var quantityInput = document.getElementById(inputId);
+    if (parseInt(quantityInput.value) < 1) {
+        return;
+    }
+    var subtotal = document.getElementById(subtotalId);
+    var itemCount = document.getElementById(itemCountId);
+
+    var quantity = parseInt(quantityInput.value) - 1;
+    var newSubtotal = parseInt(subtotal.textContent) - ( price);
+
+    itemCount.innerText = parseInt(itemCount.innerText) - 1;
+    if (isNaN(newSubtotal)) {
+        newSubtotal = 0;
+    }
+
+    subtotal.textContent = newSubtotal;
+}
+
+    </script>
+<aside>
+    <div class="sidebar bg-base-100" style="width: 0%; position: fixed;top: 60px;overflow: hidden; transition: .3s;height: 100vh;z-index: 19000;">
+        <div class="card bg-base-100">
+            <div class="card-body">
+                <h2 class="card-title">Categories</h2>
+                <ul class="menu menu-nav">
+                    <li><a>Electronics</a></li>
+                    <li><a>Home Appliances</a></li>
+                    <li><a>Books</a></li>
+                    <li><a>Stationary</a></li>
+                    <li><a>Food</a></li>
+                    <li><a>Others</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card bg-base-100">
+            <div class="card-body">
+                <h2 class="card-title">Brands</h2>
+                <ul class="menu menu-nav">
+                    <li><a>Samsung</a></li>
+                    <li><a>Apple</a></li>
+                    <li><a>LG</a></li>
+                    <li><a>HP</a></li>
+                    <li><a>Lenovo</a></li>
+                    <li><a>Others</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- div for logout button -->
+        <div class="card bg-base-100 w-full" style="position: absolute; bottom: 50px;left: 10px;">
+            <div class="card-body">
+                <a class="btn btn-error font-bold" href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+                    </svg>
+                    LogOut
+                </a>
+            </div>
+        <div>
+    </div>
+</aside>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
+<script>
+    function toggleSidebar() {
+        var sidebar = document.querySelector('.sidebar');
+        var Checkbox = document.getElementById('swap');
+        if (sidebar.style.width === '20%') {
+            sidebar.style.width = '0';
+        } else {
+            sidebar.style.width = '20%';
+            Checkbox.checked =      true   ;
+        }
+    }
+
+    var swapCheckbox = document.getElementById('swap');
+    swapCheckbox.addEventListener('change', toggleSidebar);
+    document.addEventListener('click', function (event) {
+        if (event.target.closest('.sidebar') || event.target.closest('.swap')) return;
+        var Checkbox = document.getElementById('swap');
+            document.querySelector('.sidebar').style.width = '0';
+            Checkbox.checked =      false   ;
+    });
+</script>
+</body>
+</html>
